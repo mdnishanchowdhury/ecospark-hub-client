@@ -1,0 +1,108 @@
+import axios from 'axios';
+import { ApiResponse } from '@/types/api.types';
+
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
+
+console.log(API_BASE_URL)
+
+if (!API_BASE_URL) {
+    throw new Error('API_BASE_URL is not defined in environment variables');
+}
+
+const axiosInstance = () => {
+    return axios.create({
+        baseURL: API_BASE_URL,
+        timeout: 30000,
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    });
+};
+
+export interface ApiRequestOptions {
+    params?: Record<string, unknown>;
+    headers?: Record<string, string>;
+}
+
+// HTTP GET
+const httpGet = async <TData>(endpoint: string, options?: ApiRequestOptions): Promise<ApiResponse<TData>> => {
+    try {
+        const instance = axiosInstance();
+        const response = await instance.get<ApiResponse<TData>>(endpoint, {
+            params: options?.params,
+            headers: options?.headers,
+        });
+        return response.data;
+    } catch (error) {
+        console.error(`GET request to ${endpoint} failed:`, error);
+        throw error;
+    }
+};
+
+// HTTP POST
+const httpPost = async <TData>(endpoint: string, data: unknown, options?: ApiRequestOptions): Promise<ApiResponse<TData>> => {
+    try {
+        const instance = axiosInstance();
+        const response = await instance.post<ApiResponse<TData>>(endpoint, data, {
+            params: options?.params,
+            headers: options?.headers,
+        });
+        return response.data;
+    } catch (error) {
+        console.error(`POST request to ${endpoint} failed:`, error);
+        throw error;
+    }
+};
+
+// HTTP PUT
+const httpPut = async <TData>(endpoint: string, data: unknown, options?: ApiRequestOptions): Promise<ApiResponse<TData>> => {
+    try {
+        const instance = axiosInstance();
+        const response = await instance.put<ApiResponse<TData>>(endpoint, data, {
+            params: options?.params,
+            headers: options?.headers,
+        });
+        return response.data;
+    } catch (error) {
+        console.error(`PUT request to ${endpoint} failed:`, error);
+        throw error;
+    }
+};
+
+// HTTP PATCH
+const httpPatch = async <TData>(endpoint: string, data: unknown, options?: ApiRequestOptions): Promise<ApiResponse<TData>> => {
+    try {
+        const instance = axiosInstance();
+        const response = await instance.patch<ApiResponse<TData>>(endpoint, data, {
+            params: options?.params,
+            headers: options?.headers,
+        });
+        return response.data;
+    } catch (error) {
+        console.error(`PATCH request to ${endpoint} failed:`, error);
+        throw error;
+    }
+};
+
+// HTTP DELETE
+const httpDelete = async <TData>(endpoint: string, options?: ApiRequestOptions): Promise<ApiResponse<TData>> => {
+    try {
+        const instance = axiosInstance();
+        const response = await instance.delete<ApiResponse<TData>>(endpoint, {
+            params: options?.params,
+            headers: options?.headers,
+        });
+        return response.data;
+    } catch (error) {
+        console.error(`DELETE request to ${endpoint} failed:`, error);
+        throw error;
+    }
+};
+
+export const httpClient = {
+    get: httpGet,
+    post: httpPost,
+    put: httpPut,
+    patch: httpPatch,
+    delete: httpDelete,
+};
