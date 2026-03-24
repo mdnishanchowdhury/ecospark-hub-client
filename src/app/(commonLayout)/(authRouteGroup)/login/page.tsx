@@ -1,14 +1,15 @@
-"use client"
+import LogiForm from "@/components/forms/LoginForm";
 
-import { LoginForm } from "@/components/forms/LoginForm";
-
-export default function LoginPage() {
-    return (
-        <div className="flex min-h-screen w-full flex-col items-center justify-center bg-white p-4 md:p-10">
-
-            <div className="w-full max-w-sm">
-                <LoginForm />
-            </div>
-        </div>
-    )
+interface LoginParams {
+  searchParams: Promise<{ redirect?: string }>
 }
+
+const LoginPage = async ({ searchParams }: LoginParams) => {
+  const params = await searchParams;
+  const redirectPath = params.redirect;
+  return (
+    <LogiForm redirectPath={redirectPath} />
+  )
+}
+
+export default LoginPage
