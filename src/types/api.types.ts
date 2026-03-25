@@ -16,3 +16,7 @@ export interface ApiErrorResponse {
     success: boolean;
     message: string;
 }
+
+export interface ResetPasswordFormProps {
+    email: string;
+}
