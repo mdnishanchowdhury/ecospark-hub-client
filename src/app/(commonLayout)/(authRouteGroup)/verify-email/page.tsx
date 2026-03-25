@@ -1,9 +1,18 @@
-import React from 'react'
+import VarifyForm from "@/components/forms/VarifyForm";
 
-function page() {
+interface VarifyParams {
+  searchParams: Promise<{ email?: string; redirect?: string }>
+}
+
+const VarifyPage = async ({ searchParams }: VarifyParams) => {
+  const params = await searchParams;
+
+  const emailFromUrl = params.email || "";
+  const redirectPath = params.redirect;
+
   return (
-    <div>verify-email page</div>
+    <VarifyForm initialEmail={emailFromUrl} redirectPath={redirectPath} />
   )
 }
 
-export default page
+export default VarifyPage;

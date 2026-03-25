@@ -1,6 +1,7 @@
 import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query"
 import { getIdea } from "./_action";
 import IdeaList from "@/components/modules/IdeaList/IdeaList";
+export const dynamic = 'force-dynamic';
 
 const HomePage = async () => {
 

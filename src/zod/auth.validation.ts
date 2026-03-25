@@ -24,3 +24,10 @@ export const registerZodSchema = z.object({
 });
 
 export type IRegisterPayload = z.infer<typeof registerZodSchema>;
+
+
+export const verifySchema = z.object({
+    otp: z.string()
+        .length(6, "OTP must be exactly 6 digits")
+        .regex(/^\d+$/, "Only numbers are allowed")
+});

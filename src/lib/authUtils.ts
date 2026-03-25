@@ -19,6 +19,7 @@ export const commonProtectedRoutes: RouteConfig = {
 export const adminProtectedRoutes: RouteConfig = {
     pattern: [/^\/admin\/dashboard/],
     exact: [
+        "/admin/dashboard",
         "/admin/dashboard/manage-ideas",
         "/admin/dashboard/manage-users"
     ]
@@ -27,6 +28,7 @@ export const adminProtectedRoutes: RouteConfig = {
 export const memberProtectedRoutes: RouteConfig = {
     pattern: [/^\/member\/dashboard/],
     exact: [
+        "/member/dashboard",
         "/member/dashboard/my-purchases",
         "/member/dashboard/payment/success"
     ]
