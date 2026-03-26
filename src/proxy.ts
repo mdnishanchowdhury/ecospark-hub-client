@@ -1,69 +1,102 @@
-import { NextResponse } from 'next/server'
-import { NextRequest } from 'next/server'
-import { getNewTokenWithRefreshToken } from './services/auth.services';
-import { isTokenExpiringSoon } from './lib/tokenUtils';
-import { jwtUtils } from './lib/jwtUtils';
+import jwt, { JwtPayload } from 'jsonwebtoken';
+import type { NextRequest } from 'next/server';
+import { NextResponse } from 'next/server';
+import { getUserInfo } from './services/auth/getUserInfo';
+import { deleteCookie, getCookie } from './services/auth/tokenHandlers';
+import { getNewAccessToken } from './services/auth/auth.services';
 import { UserRole } from './types/auth.type';
-import { getDefaultDashboardRoute, getRouteOwner } from './lib/authUtils';
+import { getDefaultDashboardRoute, getRouteOwner, isAuthRoute } from './lib/authUtils';
 
-async function refreshTokenMiddleware(refreshToken: string): Promise<boolean> {
-    try {
-        const refresh = await getNewTokenWithRefreshToken(refreshToken);
-        return !!refresh;
-    } catch (error) {
-        console.error("Error refreshing token in middleware:", error);
-        return false;
-    }
-}
+
 
 export async function proxy(request: NextRequest) {
-    try {
-        const { pathname } = request.nextUrl;
-        const accessToken = request.cookies.get("accessToken")?.value;
-        const refreshToken = request.cookies.get("refreshToken")?.value;
-        const isGenericDashboard = pathname === "/dashboard";
-        const routerOwner = getRouteOwner(pathname);
+    const pathname = request.nextUrl.pathname;
+    const hasTokenRefreshedParam = request.nextUrl.searchParams.has('tokenRefreshed');
 
-        if (!accessToken) {
-            if (routerOwner || isGenericDashboard) {
-                const loginUrl = new URL("/login", request.url);
-                loginUrl.searchParams.set("redirect", pathname);
-                return NextResponse.redirect(loginUrl);
+    if (hasTokenRefreshedParam) {
+        const url = request.nextUrl.clone();
+        url.searchParams.delete('tokenRefreshed');
+        return NextResponse.redirect(url);
+    }
+
+    const tokenRefreshResult = await getNewAccessToken();
+
+    if (tokenRefreshResult?.tokenRefreshed) {
+        const url = request.nextUrl.clone();
+        url.searchParams.set('tokenRefreshed', 'true');
+        return NextResponse.redirect(url);
+    }
+
+
+    const accessToken = await getCookie("accessToken") || null;
+
+    let userRole: UserRole | null = null;
+    if (accessToken) {
+        const verifiedToken: JwtPayload | string = jwt.verify(accessToken, process.env.JWT_SECRET as string);
+
+        if (typeof verifiedToken === "string") {
+            await deleteCookie("accessToken");
+            await deleteCookie("refreshToken");
+            return NextResponse.redirect(new URL('/login', request.url));
+        }
+
+        userRole = verifiedToken.role;
+    }
+
+    const routerOwner = getRouteOwner(pathname);
+
+    const isAuth = isAuthRoute(pathname)
+
+    if (accessToken && isAuth) {
+        return NextResponse.redirect(new URL(getDefaultDashboardRoute(userRole as UserRole), request.url))
+    }
+
+
+    if (routerOwner === null) {
+        return NextResponse.next();
+    }
+
+
+    if (!accessToken) {
+        const loginUrl = new URL("/login", request.url);
+        loginUrl.searchParams.set("redirect", pathname);
+        return NextResponse.redirect(loginUrl);
+    }
+
+
+    if (accessToken) {
+        const userInfo = await getUserInfo();
+        if (userInfo?.needPasswordChange) {
+            if (pathname !== "/reset-password") {
+                const resetPasswordUrl = new URL("/reset-password", request.url);
+                resetPasswordUrl.searchParams.set("redirect", pathname);
+                return NextResponse.redirect(resetPasswordUrl);
             }
             return NextResponse.next();
         }
 
-        if (accessToken && refreshToken && (await isTokenExpiringSoon(accessToken))) {
-            const refreshed = await refreshTokenMiddleware(refreshToken);
-            if (refreshed) {
-                const response = NextResponse.redirect(request.nextUrl);
-                response.headers.set("x-token-refresh", "1");
-                return response;
-            }
+        if (userInfo && !userInfo.needPasswordChange && pathname === '/reset-password') {
+            return NextResponse.redirect(new URL(getDefaultDashboardRoute(userRole as UserRole), request.url));
         }
+    }
 
-        const tokenData = jwtUtils.verifyToken(accessToken, process.env.JWT_ACCESS_SECRET!);
-        const userRole = tokenData?.data?.role as UserRole;
-
-        if (userRole) {
-            const correctDashboard = getDefaultDashboardRoute(userRole);
-
-            if (isGenericDashboard || (routerOwner && routerOwner !== userRole && routerOwner !== "COMMON")) {
-                if (pathname !== correctDashboard) {
-                    return NextResponse.redirect(new URL(correctDashboard, request.url));
-                }
-            }
-        }
-
-        return NextResponse.next();
-    } catch (error) {
-        console.error("Middleware Error:", error);
+    if (routerOwner === "COMMON") {
         return NextResponse.next();
     }
+
+    if (routerOwner === "ADMIN" || routerOwner === "MEMBER") {
+        if (userRole !== routerOwner) {
+            return NextResponse.redirect(new URL(getDefaultDashboardRoute(userRole as UserRole), request.url))
+        }
+    }
+
+    return NextResponse.next();
 }
+
+
 
 export const config = {
     matcher: [
-        '/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt|.well-known).*)'
-    ]
+        '/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt|.well-known).*)',
+    ],
 }

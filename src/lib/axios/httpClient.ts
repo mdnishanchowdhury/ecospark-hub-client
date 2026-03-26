@@ -2,7 +2,7 @@ import { ApiResponse } from '@/types/api.types';
 import axios from 'axios';
 import { isTokenExpiringSoon } from '../tokenUtils';
 import { cookies, headers } from 'next/headers';
-import { getNewTokenWithRefreshToken } from '@/services/auth.services';
+import { getNewTokenWithRefreshToken } from '@/services/auth/auth.services';
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 

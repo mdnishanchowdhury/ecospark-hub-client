@@ -17,6 +17,8 @@ export const loginAction = async (payload: ILoginPayload, redirectPath?: string)
         const response = await httpClient.post<ILoginResponse>("/auth/login", parsedPayload.data);
         const { accessToken, refreshToken, token, user } = response.data;
 
+        console.log("user", user)
+
         if (!user.emailVerified) {
             redirect(`/verify-email?email=${encodeURIComponent(user.email)}`);
         }
