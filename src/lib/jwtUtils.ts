@@ -1,4 +1,4 @@
-import jwt, { JwtPayload, SignOptions } from "jsonwebtoken";
+import jwt, { JwtPayload } from "jsonwebtoken";
 
 const verifyToken = (token: string, secret: string) => {
     try {

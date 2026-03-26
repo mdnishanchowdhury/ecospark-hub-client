@@ -1,8 +1,6 @@
-import { ApiResponse } from '@/types/api.types';
 import axios from 'axios';
-import { isTokenExpiringSoon } from '../tokenUtils';
-import { cookies, headers } from 'next/headers';
-import { getNewTokenWithRefreshToken } from '@/services/auth/auth.services';
+import { cookies } from 'next/headers';
+import { ApiResponse } from '@/types/api.types';
 
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
@@ -10,38 +8,13 @@ if (!API_BASE_URL) {
     throw new Error('API_BASE_URL is not defined in environment variables');
 }
 
-async function tryRefreshToken(
-    accessToken: string,
-    refreshToken: string
-): Promise<void> {
-    if (!isTokenExpiringSoon(accessToken)) {
-        return;
-    }
-
-    const requestHeader = await headers();
-
-    if (requestHeader.get("x-token-refresh") === "1") {
-        return;
-    }
-
-    try {
-        await getNewTokenWithRefreshToken(refreshToken)
-    } catch (error: any) {
-        console.error("Error refreshing token in http client:", error);
-    }
-}
-
 const axiosInstance = async () => {
-
     const cookieStore = await cookies();
-    const accessToken = cookieStore.get("accessToken")?.value;
-    const refreshToken = cookieStore.get("refreshToken")?.value;
 
-    if (accessToken && refreshToken) {
-        await tryRefreshToken(accessToken, refreshToken);
-    }
-
-    const cookieHeader = cookieStore.getAll().map((cookie) => `${cookie.name}=${cookie.value}`).join("; ");
+    const cookieHeader = cookieStore
+        .getAll()
+        .map((cookie) => `${cookie.name}=${cookie.value}`)
+        .join("; ");
 
     const instance = axios.create({
         baseURL: API_BASE_URL,
@@ -50,10 +23,10 @@ const axiosInstance = async () => {
             'Content-Type': 'application/json',
             Cookie: cookieHeader
         }
-    })
+    });
 
     return instance;
-}
+};
 
 export interface ApiRequestOptions {
     params?: Record<string, unknown>;

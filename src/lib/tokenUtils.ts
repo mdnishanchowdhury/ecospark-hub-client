@@ -5,6 +5,7 @@ import { setCookie } from "./cookiesUtils";
 
 const getTokenSecondRemaining = (token: string): number => {
     if (!token) return 0;
+    
     try {
         const tokenPayload = jwt.decode(token) as JwtPayload;
 

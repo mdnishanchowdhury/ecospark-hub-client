@@ -1,4 +1,4 @@
-import { Navbar } from "@/components/shared/navbar";
+import PublicNavbar from "@/components/shared/Navbar/PublicNavbar";
 
 export default function CommonLayout({
     children,
@@ -9,7 +9,7 @@ export default function CommonLayout({
         <>
             <div className="max-w-7xl mx-auto">
 
-                <Navbar />
+                <PublicNavbar />
 
                 <main className="flex-grow">
                     {children}

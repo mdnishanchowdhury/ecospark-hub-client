@@ -1,7 +1,7 @@
 "use client";
 
 import { logoutUser } from "@/lib/logoutUser";
-import { Button } from "../ui/button";
+import { Button } from "../../ui/button";
 
 const LogoutButton = () => {
   const handleLogout = async () => {

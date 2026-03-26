@@ -1,12 +1,31 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { Calendar, ThumbsUp, ThumbsDown, MessageCircle, ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
 export default function IdeaCard({ idea }: { idea: any }) {
+  const [mounted, setMounted] = useState(false);
+  const router = useRouter();
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const handleVote = async (type: "UPVOTE" | "DOWNVOTE") => {
+    try {
+      toast.success(`${type === "UPVOTE" ? "Liked" : "Disliked"} successfully!`);
+      router.refresh();
+    } catch (error) {
+      toast.error("Something went wrong. Please login first.");
+    }
+  };
+
   return (
     <Card className="group overflow-hidden border-none shadow-sm hover:shadow-md transition-all duration-300 bg-white rounded-3xl">
       {/* Image Section */}
@@ -18,8 +37,7 @@ export default function IdeaCard({ idea }: { idea: any }) {
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
           />
         </div>
-        
-        {/* Badges */}
+
         <div className="absolute top-4 right-4 flex gap-2">
           {idea.isPaid && (
             <Badge className="bg-orange-500 hover:bg-orange-600 text-white border-none">
@@ -27,7 +45,7 @@ export default function IdeaCard({ idea }: { idea: any }) {
             </Badge>
           )}
           <Badge variant={idea.status === "APPROVED" ? "default" : "secondary"} className="capitalize">
-            {idea.status.toLowerCase()}
+            {idea.status?.toLowerCase() || "pending"}
           </Badge>
         </div>
       </div>
@@ -39,7 +57,7 @@ export default function IdeaCard({ idea }: { idea: any }) {
           </span>
           <div className="flex items-center text-muted-foreground text-[11px] gap-1">
             <Calendar size={12} />
-            {new Date(idea.createdAt).toLocaleDateString("en-GB")}
+            {mounted ? new Date(idea.createdAt).toLocaleDateString("en-GB") : "---"}
           </div>
         </div>
         <h2 className="text-lg font-bold line-clamp-1 group-hover:text-emerald-600 transition-colors">
@@ -59,18 +77,29 @@ export default function IdeaCard({ idea }: { idea: any }) {
 
       <CardFooter className="px-5 py-4 flex items-center justify-between">
         <div className="flex items-center gap-4">
-          <button className="flex items-center gap-1.5 text-muted-foreground hover:text-emerald-600 transition-colors">
-            <ThumbsUp size={16} className="text-emerald-500" />
+          {/* Like Button */}
+          <button
+            onClick={() => handleVote("UPVOTE")}
+            className="flex items-center gap-1.5 text-muted-foreground hover:text-emerald-600 transition-colors group/btn"
+          >
+            <ThumbsUp size={16} className="text-emerald-500 group-active/btn:scale-125 transition-transform" />
             <span className="text-xs font-medium">{idea.upVotes || 0}</span>
           </button>
-          <button className="flex items-center gap-1.5 text-muted-foreground hover:text-rose-500 transition-colors">
-            <ThumbsDown size={16} className="text-rose-400" />
+
+          {/* Dislike Button */}
+          <button
+            onClick={() => handleVote("DOWNVOTE")}
+            className="flex items-center gap-1.5 text-muted-foreground hover:text-rose-500 transition-colors group/btn"
+          >
+            <ThumbsDown size={16} className="text-rose-400 group-active/btn:scale-125 transition-transform" />
             <span className="text-xs font-medium">{idea.downVotes || 0}</span>
           </button>
-          <div className="flex items-center gap-1.5 text-muted-foreground">
+
+          {/* Comment Button */}
+          <Link href={`/ideas/${idea.id}#comments`} className="flex items-center gap-1.5 text-muted-foreground hover:text-sky-500 transition-colors">
             <MessageCircle size={16} className="text-sky-400" />
             <span className="text-xs font-medium">{idea._count?.comments || 0}</span>
-          </div>
+          </Link>
         </div>
 
         <Button variant="ghost" size="sm" asChild className="text-emerald-600 hover:text-emerald-700 hover:bg-emerald-50 font-bold p-0 px-2">

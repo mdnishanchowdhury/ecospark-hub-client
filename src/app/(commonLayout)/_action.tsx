@@ -16,6 +16,5 @@ interface IIdea {
 
 export const getIdea = async () => {
     const idea = await httpClient.get<IIdea[]>('/idea');
-    console.log(idea, "server");
     return idea;
 }
