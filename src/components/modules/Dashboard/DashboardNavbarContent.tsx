@@ -4,11 +4,11 @@ import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Bell, Menu, Search, Settings, HelpCircle, X } from "lucide-react";
 import { useEffect, useState } from "react";
-import { UserInfo } from "@/services/auth/getUserInfo";
 import { NavSection } from "@/types/dashboard.types";
 import DashboardMobileSidebar from "./DashboardMobileSidebar";
 import UserDropdown from "./UserDropdown";
 import { cn } from "@/lib/utils";
+import { UserInfo } from "@/types/auth.type";
 
 interface DashboardNavbarContentProps {
   userInfo: UserInfo;

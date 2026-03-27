@@ -10,7 +10,7 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { logoutUser } from "@/lib/logoutUser";
-import { UserInfo } from "@/services/auth/getUserInfo";
+import { UserInfo } from "@/types/auth.type";
 import { Settings, User, LogOut, ShieldCheck } from "lucide-react";
 import Link from "next/link";
 

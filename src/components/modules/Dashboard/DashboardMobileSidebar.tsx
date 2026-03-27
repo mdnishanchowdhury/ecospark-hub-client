@@ -5,12 +5,12 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { SheetTitle, SheetClose } from "@/components/ui/sheet";
 import { getIconComponent } from "@/lib/iconMapper";
 import { cn } from "@/lib/utils";
-import { UserInfo } from "@/services/auth/getUserInfo";
 import { NavSection } from "@/types/dashboard.types";
 import { Leaf, LogOut } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { logoutUser } from "@/lib/logoutUser";
+import { UserInfo } from "@/types/auth.type";
 
 interface DashboardMobileSidebarProps {
   userInfo: UserInfo;

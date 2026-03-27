@@ -1,40 +1,23 @@
 "use server"
 
-import { serverFetch } from "@/lib/server-fetch";
 import jwt, { JwtPayload } from "jsonwebtoken";
 import { getCookie } from "./tokenHandlers";
-
- export interface UserInfo {
-    id: string;
-    name: string;
-    email: string;
-    role: "ADMIN" | "MEMBER";
-    status?: string;
-    bio?: string;
-    address?: string;
-    phoneNumber?: string;
-    totalIdeasShared?: number;
-    totalPurchases?: number;
-    needPasswordChange?: boolean;
-}
+import { httpClient } from "@/lib/axios/httpClient";
+import { UserInfo } from "@/types/auth.type";
 
 export const getUserInfo = async (): Promise<UserInfo | null> => {
     try {
-        const response = await serverFetch.get("/auth/me", {
-            cache: "no-store", 
-            next: { tags: ["user-info"] }
-        });
-
-        const result = await response.json();
+        const result = await httpClient.get<UserInfo>("/auth/me");
 
         if (result.success && result.data) {
+            const data = result.data as any;
             return {
-                id: result.data.id || result.data._id,
-                name: result.data.name || "Unknown User",
-                email: result.data.email,
-                role: result.data.role, 
-                status: result.data.status,
-                ...result.data
+                id: data.id || data._id,
+                name: data.name || "Unknown User",
+                email: data.email,
+                role: data.role,
+                status: data.status,
+                ...data
             } as UserInfo;
         }
 
@@ -48,16 +31,15 @@ export const getUserInfo = async (): Promise<UserInfo | null> => {
                     id: decodedToken.id || "",
                     name: decodedToken.name || "EcoSpark User",
                     email: decodedToken.email || "",
-                    role: decodedToken.role || "MEMBER", 
+                    role: decodedToken.role || "MEMBER",
                 } as UserInfo;
             }
         }
 
-        return null; 
+        return null;
 
     } catch (error: any) {
         console.error("Error fetching user info in EcoSpark:", error.message);
-
-        return null; 
+        return null;
     }
 };

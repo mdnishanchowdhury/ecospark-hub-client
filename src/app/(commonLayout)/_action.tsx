@@ -2,7 +2,7 @@
 
 import { httpClient } from "@/lib/axios/httpClient";
 
-interface IIdea {
+export interface IIdea {
     title: string;
     problemStatement: string;
     solution: string;

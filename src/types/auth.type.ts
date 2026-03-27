@@ -15,6 +15,19 @@ export interface ILoginResponse {
 }
 export type UserRole = "ADMIN" | "MEMBER";
 
+export interface UserInfo {
+    id: string;
+    name: string;
+    email: string;
+    role: UserRole;
+    status?: string;
+    bio?: string;
+    address?: string;
+    phoneNumber?: string;
+    totalIdeasShared?: number;
+    totalPurchases?: number;
+    needPasswordChange?: boolean;
+}
 
 export interface IRegisterResponse {
     success: boolean;
@@ -45,3 +58,4 @@ export interface IUserPayload {
     emailVerified: boolean;
     name?: string;
 }
+

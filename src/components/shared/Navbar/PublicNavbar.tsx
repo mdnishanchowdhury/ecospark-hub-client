@@ -44,9 +44,10 @@ const PublicNavbar = async () => {
     { title: "Community", url: "/community" },
   ];
 
+
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-white/90 backdrop-blur-md">
-      <div className="max-w-[1400px] mx-auto px-6">
+      <div className="max-w-[1400px] mx-auto">
         {/* DESKTOP */}
         <nav className="hidden h-14 items-center justify-between lg:flex">
           <div className="flex items-center gap-6">

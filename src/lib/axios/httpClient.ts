@@ -8,15 +8,19 @@ if (!API_BASE_URL) {
     throw new Error('API_BASE_URL is not defined in environment variables');
 }
 
-const axiosInstance = async () => {
+const axiosInstance = async (endpoint: string) => {
     const cookieStore = await cookies();
+
+    // if (endpoint !== "/auth/refresh-token") {
+    //     await getNewAccessToken();
+    // }
 
     const cookieHeader = cookieStore
         .getAll()
         .map((cookie) => `${cookie.name}=${cookie.value}`)
         .join("; ");
 
-    const instance = axios.create({
+    return axios.create({
         baseURL: API_BASE_URL,
         timeout: 30000,
         headers: {
@@ -24,8 +28,6 @@ const axiosInstance = async () => {
             Cookie: cookieHeader
         }
     });
-
-    return instance;
 };
 
 export interface ApiRequestOptions {
@@ -33,73 +35,77 @@ export interface ApiRequestOptions {
     headers?: Record<string, string>;
 }
 
+// GET Method
 const httpGet = async <TData>(endpoint: string, options?: ApiRequestOptions): Promise<ApiResponse<TData>> => {
     try {
-        const instance = await axiosInstance();
+        const instance = await axiosInstance(endpoint);
         const response = await instance.get<ApiResponse<TData>>(endpoint, {
             params: options?.params,
             headers: options?.headers,
         });
         return response.data;
-    } catch (error) {
-        console.error(`GET request to ${endpoint} failed:`, error);
+    } catch (error: any) {
+        console.error(`GET request to ${endpoint} failed:`, error.message);
         throw error;
     }
 }
 
+// POST Method
 const httpPost = async <TData>(endpoint: string, data: unknown, options?: ApiRequestOptions): Promise<ApiResponse<TData>> => {
     try {
-        const instance = await axiosInstance();
+        const instance = await axiosInstance(endpoint);
         const response = await instance.post<ApiResponse<TData>>(endpoint, data, {
             params: options?.params,
             headers: options?.headers,
         });
         return response.data;
-    } catch (error) {
-        console.error(`POST request to ${endpoint} failed:`, error);
+    } catch (error: any) {
+        console.error(`POST request to ${endpoint} failed:`, error.message);
         throw error;
     }
 }
 
+// PUT Method
 const httpPut = async <TData>(endpoint: string, data: unknown, options?: ApiRequestOptions): Promise<ApiResponse<TData>> => {
     try {
-        const instance = await axiosInstance();
+        const instance = await axiosInstance(endpoint);
         const response = await instance.put<ApiResponse<TData>>(endpoint, data, {
             params: options?.params,
             headers: options?.headers,
         });
         return response.data;
-    } catch (error) {
-        console.error(`PUT request to ${endpoint} failed:`, error);
+    } catch (error: any) {
+        console.error(`PUT request to ${endpoint} failed:`, error.message);
         throw error;
     }
 }
 
+// PATCH Method
 const httpPatch = async <TData>(endpoint: string, data: unknown, options?: ApiRequestOptions): Promise<ApiResponse<TData>> => {
     try {
-        const instance = await axiosInstance();
+        const instance = await axiosInstance(endpoint);
         const response = await instance.patch<ApiResponse<TData>>(endpoint, data, {
             params: options?.params,
             headers: options?.headers,
         });
         return response.data;
-    }
-    catch (error) {
-        console.error(`PATCH request to ${endpoint} failed:`, error);
+    } catch (error: any) {
+        console.error(`PATCH request to ${endpoint} failed:`, error.message);
         throw error;
     }
 }
 
+// DELETE Method
 const httpDelete = async <TData>(endpoint: string, options?: ApiRequestOptions): Promise<ApiResponse<TData>> => {
     try {
-        const instance = await axiosInstance();
+        const instance = await axiosInstance(endpoint);
         const response = await instance.delete<ApiResponse<TData>>(endpoint, {
             params: options?.params,
             headers: options?.headers,
         });
         return response.data;
-    } catch (error) {
-        console.error(`DELETE request to ${endpoint} failed:`, error);
+    } catch (error: any) {
+        console.error(`DELETE request to ${endpoint} failed:`, error.message);
         throw error;
     }
 }
