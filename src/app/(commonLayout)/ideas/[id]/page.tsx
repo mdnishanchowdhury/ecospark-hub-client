@@ -1,24 +1,27 @@
+import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query";
 import { getIdeaById } from "@/services/ideas/idea.service";
 import { notFound } from "next/navigation";
 import IdeaDetails from "@/components/modules/Ideas/IdeaDetails";
 
-interface IdeaDetailPageProps {
-  params: Promise<{ id: string }>;
-}
-
-export default async function IdeaDetailPage({ params }: IdeaDetailPageProps) {
+export default async function Page({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
-  const response = await getIdeaById(id);
+  const queryClient = new QueryClient();
 
-  if (!response?.success || !response?.data) {
+  await queryClient.prefetchQuery({
+    queryKey: ["idea", id],
+    queryFn: () => getIdeaById(id),
+  });
+
+  const state = dehydrate(queryClient);
+  const ideaResponse: any = state.queries.find((q) => q.queryKey[1] === id)?.state.data;
+
+  if (!ideaResponse?.success || !ideaResponse?.data) {
     notFound();
   }
 
-  const idea = response.data;
-
   return (
-    <div className="container mx-auto px-4 py-8">
-      <IdeaDetails idea={idea as any} />
-    </div>
+    <HydrationBoundary state={state}>
+      <IdeaDetails initialIdea={ideaResponse.data} />
+    </HydrationBoundary>
   );
 }

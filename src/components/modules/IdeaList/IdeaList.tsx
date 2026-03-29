@@ -1,14 +1,14 @@
 "use client";
 
-import { getIdea } from "@/app/(commonLayout)/_action";
 import { useQuery } from "@tanstack/react-query";
 import IdeaCard from "./IdeaCard";
 import { motion } from "framer-motion";
+import { getIdeas } from "@/services/ideas/idea.service";
 
 export default function IdeaList() {
-  const { data, isLoading } = useQuery({
+  const { data, isLoading, isError } = useQuery({
     queryKey: ["ideas"],
-    queryFn: getIdea,
+    queryFn: () => getIdeas(),
   });
 
   const ideas = data?.data || [];
@@ -21,7 +21,15 @@ export default function IdeaList() {
     );
   }
 
-  if (ideas.length === 0) {
+  if (isError) {
+    return (
+      <div className="text-center py-20 text-red-500">
+        Failed to load ideas. Please try again later.
+      </div>
+    );
+  }
+
+  if (!Array.isArray(ideas) || ideas.length === 0) {
     return (
       <div className="text-center py-20 text-muted-foreground">
         No ideas found. Be the first to spark one!

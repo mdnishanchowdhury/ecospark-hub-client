@@ -1,3 +1,5 @@
+export type statusRole = "UNDER_REVIEW" | "APPROVED" | "REJECTED";
+
 export interface IComment {
     id: string;
     content: string;
@@ -21,7 +23,7 @@ export interface IIdea {
     images: string[];
     isPaid: boolean;
     price: number;
-    status: string;
+    status: statusRole | string;
     feedback: string | null;
     authorId: string;
     categoryId: string;
@@ -44,4 +46,27 @@ export interface IIdea {
     downVotes: number;
     totalVotes: number;
     isLocked: boolean;
+}
+
+export interface IpurchasedPayload {
+    ideaId: string;
+}
+
+export interface IpurchasedResult {
+    success: boolean;
+    message: string;
+    data?: {
+        id: string;
+        userId: string;
+        ideaId: string;
+    };
+    paymentUrl: string;
+}
+
+export interface CommentSectionProps {
+    ideaId: string;
+    comments: any[];
+    commentCount: number;
+    currentUserId?: string;
+    currentUserRole?: string;
 }
