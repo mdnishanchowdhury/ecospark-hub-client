@@ -58,6 +58,11 @@ export const adminNavItems: NavSection[] = [
                 title: "Add Category",
                 href: `/admin/dashboard/add-category`,
                 icon: "Plus"
+            },
+            {
+                title: "All Categories",
+                href: `/admin/dashboard/all-categories`,
+                icon: "List"
             }
         ]
     }

@@ -1,9 +1,12 @@
-import React from 'react'
+import CreateIdeaForm from '@/components/forms/IdeaForm'
 
-function page() {
+
+function IdeaAddPage() {
   return (
-    <div>add idea page</div>
+    <div>
+        <CreateIdeaForm />
+    </div>
   )
 }
 
-export default page
+export default IdeaAddPage

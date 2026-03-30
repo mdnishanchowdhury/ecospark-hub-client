@@ -39,7 +39,7 @@ const IdeaDetails = ({ initialIdea }: IdeaDetailProps) => {
     queryKey: ["idea", initialIdea.id],
     queryFn: () => getIdeaById(initialIdea.id),
     initialData: { success: true, data: initialIdea, message: "Loaded" },
-    staleTime: 1000 * 60 * 5,
+    staleTime: 1000 * 10,
   });
 
   const idea = response?.data || initialIdea;

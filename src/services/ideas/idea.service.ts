@@ -3,6 +3,23 @@
 import { httpClient } from "@/lib/axios/httpClient";
 import { IpurchasedPayload, IpurchasedResult } from "@/types/idea.types";
 
+export const createIdeaAction = async (formData: FormData) => {
+    try {
+        const response = await httpClient.post("/idea", formData, {
+            headers: {
+                "Content-Type": "multipart/form-data",
+            },
+        });
+
+        return response;
+
+    } catch (error: any) {
+        return {
+            success: false,
+            message: error.response?.data?.message || "Failed to create idea",
+        };
+    }
+};
 
 export const getIdeas = async (queryString?: string) => {
     try {

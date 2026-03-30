@@ -1,3 +1,5 @@
+import { Toaster } from "sonner";
+
 export default function MemberDashboardLayout({
   children,
 }: Readonly<{
@@ -5,7 +7,7 @@ export default function MemberDashboardLayout({
 }>) {
   return (
     <>
-      Member Dashboard Layout
+      <Toaster richColors />
       {children}
     </>
   );

@@ -1,3 +1,5 @@
+import { Toaster } from "sonner";
+
 export default function AdminDashboardLayout({
   children,
 }: Readonly<{
@@ -5,7 +7,7 @@ export default function AdminDashboardLayout({
 }>) {
   return (
     <>
-      Admin Dashboard Layout
+      <Toaster richColors />
       {children}
     </>
   );

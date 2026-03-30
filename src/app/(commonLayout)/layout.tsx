@@ -1,5 +1,4 @@
 import PublicNavbar from "@/components/shared/Navbar/PublicNavbar";
-
 export default function CommonLayout({
     children,
 }: Readonly<{
@@ -8,10 +7,10 @@ export default function CommonLayout({
     return (
         <>
             <div className="max-w-7xl mx-auto">
-
                 <PublicNavbar />
 
                 <main className="flex-grow">
+
                     {children}
                 </main>
 
