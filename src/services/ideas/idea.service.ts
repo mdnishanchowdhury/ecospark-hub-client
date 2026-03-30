@@ -64,3 +64,32 @@ export const purchasedIdea = async (payload: IpurchasedPayload) => {
         };
     }
 };
+
+
+export const getMyIdeas = async () => {
+    try {
+        const res = await httpClient.get("/idea/my-ideas");
+        console.log(res.data)
+        return res.data; 
+    } catch (error: any) {
+        return error.response?.data || { success: false, message: "Server error" };
+    }
+};
+
+export const getPendingIdeas = async () => {
+    try {
+        const res = await httpClient.get("/idea/pending-ideas");
+        return res; 
+    } catch (error: any) {
+        return error.response?.data || { success: false, message: "Server error" };
+    }
+};
+
+export const updateIdeaStatus = async (id: string, payload: { status: string; feedback?: string }) => {
+    try {
+        const res = await httpClient.patch(`/idea/update-status/${id}`, payload);
+        return res.data;
+    } catch (error: any) {
+        throw error.response?.data || { message: "Failed to update status" };
+    }
+};

@@ -45,6 +45,11 @@ export const memberNavItems: NavSection[] = [
                 title: "Add Idea",
                 href: `/member/dashboard/add-idea`,
                 icon: "Plus"
+            },
+            {
+                title: "My Ideas",
+                href: `/member/dashboard/my-ideas`,
+                icon: "List"
             }
         ]
     }
@@ -54,6 +59,11 @@ export const adminNavItems: NavSection[] = [
     {
         title: "Admin Management",
         items: [
+            {
+                title: "Pending Ideas",
+                href: `/admin/dashboard/pending-ideas`,
+                icon: "Clock"
+            },
             {
                 title: "Add Category",
                 href: `/admin/dashboard/add-category`,
