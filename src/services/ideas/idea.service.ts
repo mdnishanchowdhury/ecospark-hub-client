@@ -70,7 +70,7 @@ export const getMyIdeas = async () => {
     try {
         const res = await httpClient.get("/idea/my-ideas");
         console.log(res.data)
-        return res.data; 
+        return res.data;
     } catch (error: any) {
         return error.response?.data || { success: false, message: "Server error" };
     }
@@ -79,7 +79,7 @@ export const getMyIdeas = async () => {
 export const getPendingIdeas = async () => {
     try {
         const res = await httpClient.get("/idea/pending-ideas");
-        return res; 
+        return res;
     } catch (error: any) {
         return error.response?.data || { success: false, message: "Server error" };
     }
@@ -91,5 +91,35 @@ export const updateIdeaStatus = async (id: string, payload: { status: string; fe
         return res.data;
     } catch (error: any) {
         throw error.response?.data || { message: "Failed to update status" };
+    }
+};
+
+
+export const updateIdeaAction = async (id: string, formData: FormData) => {
+    try {
+        const response = await httpClient.patch(`/idea/edit/${id}`, formData, {
+            headers: {
+                "Content-Type": "multipart/form-data",
+            },
+        });
+
+        return response.data;
+    } catch (error: any) {
+        return {
+            success: false,
+            message: error.response?.data?.message || "Failed to update idea",
+        };
+    }
+};
+
+export const deleteIdea = async (id: string) => {
+    try {
+        const response = await httpClient.delete(`/idea/${id}`);
+        return response.data;
+    } catch (error: any) {
+        return {
+            success: false,
+            message: error.response?.data?.message || "Failed to delete idea",
+        };
     }
 };

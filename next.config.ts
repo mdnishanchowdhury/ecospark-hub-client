@@ -6,7 +6,7 @@ const nextConfig = {
         protocol: 'https',
         hostname: 'res.cloudinary.com',
       },
-     {
+      {
         protocol: 'https',
         hostname: 'i.ibb.co.com',
       },
@@ -19,6 +19,11 @@ const nextConfig = {
         hostname: 'via.placeholder.com',
       },
     ],
+  },
+  experimental: {
+    serverActions: {
+      bodySizeLimit: '10mb',
+    },
   },
 };
 
