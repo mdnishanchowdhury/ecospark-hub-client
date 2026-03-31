@@ -21,20 +21,18 @@ export const createIdeaAction = async (formData: FormData) => {
     }
 };
 
-export const getIdeas = async (queryString?: string) => {
-    try {
-        const response = await httpClient.get<any>(`/idea${queryString ? `?${queryString}` : ""}`);
-        return response;
-
-    } catch (error: any) {
-        console.error("Error fetching ideas:", error.message);
-        return {
-            success: false,
-            message: error.response?.data?.message || "Failed to fetch ideas",
-            data: []
-        };
+export const getIdeas = async (params?: Record<string, any>): Promise<any> => {
+    const query = new URLSearchParams();
+    if (params) {
+        Object.entries(params).forEach(([key, value]) => {
+            if (value !== undefined && value !== null && value !== "") {
+                query.append(key, value.toString());
+            }
+        });
     }
-}
+    const res = await httpClient.get(`/idea?${query.toString()}`);
+    return res.data;
+};
 
 export const getIdeaById = async (id: string) => {
     try {

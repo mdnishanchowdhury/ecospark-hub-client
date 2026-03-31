@@ -70,3 +70,27 @@ export interface CommentSectionProps {
     currentUserId?: string;
     currentUserRole?: string;
 }
+
+export interface TIdea {
+    id: string;
+    title: string;
+    problemStatement: string;
+    description: string;
+    images: string[];
+    isPaid: boolean;
+    price: number;
+    status: string;
+    createdAt: string;
+    upVotes: number;
+    downVotes: number;
+    category: { name: string };
+    votes: any[];
+    _count: { comments: number };
+}
+
+export interface TMeta {
+    page: number;
+    limit: number;
+    total: number;
+    totalPage: number;
+}
