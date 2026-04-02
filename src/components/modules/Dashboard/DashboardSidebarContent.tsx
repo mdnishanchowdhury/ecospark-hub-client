@@ -26,17 +26,18 @@ function DashboardSidebarContent({
     const handleLogout = async () => {
         await logoutUser();
     };
-// bg-[#f0f4f1]
     return (
-        <div className="hidden md:flex h-full w-64 flex-col border-r border-slate-200 bg-[#e8eee9]">
+        <div className="hidden md:flex h-full w-64 flex-col border-r border-slate-200 bg-[#0d4e42] text-white"
+            suppressHydrationWarning
+        >
             {/* Logo Section */}
             <div className="flex h-20 items-center border-b border-slate-100 px-6">
-                <Link href={dashboardHome} className="flex items-center gap-2.5 group">
-                    <div className="bg-emerald-600 p-1.5 rounded-lg transition-transform group-hover:rotate-12">
+                <Link href={dashboardHome} className="flex items-center gap-1 group">
+                    <div className=" p-1.5 rounded-lg transition-transform group-hover:rotate-12">
                         <Leaf className="h-5 w-5 text-white" />
                     </div>
-                    <span className="text-xl font-bold tracking-tight text-slate-800">
-                        Spark<span className="text-emerald-600">Hub</span>
+                    <span className="text-xl font-bold tracking-tight text-white group-hover:text-emerald-600 transition-colors">
+                        <span className="text-emerald-600">Eco</span>Spark
                     </span>
                 </Link>
             </div>
@@ -61,12 +62,12 @@ function DashboardSidebarContent({
                                             className={cn(
                                                 "flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium transition-all duration-200",
                                                 isActive
-                                                    ? "bg-emerald-50 text-emerald-700"
-                                                    : "text-slate-500 hover:bg-slate-50 hover:text-slate-900"
+                                                    ? "bg-[#078d60] text-emerald-700"
+                                                    : "text-slate-500 hover:bg-[#078d60] hover:text-slate-900"
                                             )}
                                         >
-                                            <Icon className={cn("h-5 w-5", isActive ? "text-emerald-600" : "text-slate-400")} />
-                                            <span>{item.title}</span>
+                                            <Icon className={cn("h-5 w-5", isActive ? "text-white" : "text-white")} />
+                                            <span className="text-white">{item.title}</span>
                                         </Link>
                                     );
                                 })}
@@ -77,10 +78,10 @@ function DashboardSidebarContent({
             </ScrollArea>
 
             {/* Logout Footer Section */}
-            <div className="p-4 border-t border-slate-100 bg-slate-50/30">
+            <div className="p-4 border-t border-slate-100 bg-[#0d4e42]">
                 <button
                     onClick={handleLogout}
-                    className="flex w-full items-center gap-3 rounded-xl px-4 py-3 text-sm font-bold text-rose-600 transition-all duration-200 hover:bg-rose-50 hover:text-rose-700 group border border-transparent hover:border-rose-100 shadow-sm hover:shadow-none"
+                    className="flex w-full items-center gap-3 rounded-xl px-4 py-3 text-sm font-bold text-rose-600 transition-all duration-200 bg-emerald-50 hover:bg-rose-50 hover:text-rose-700 group border border-transparent hover:border-rose-100 shadow-sm hover:shadow-none"
                 >
                     <LogOut className="h-5 w-5 transition-transform group-hover:-translate-x-1" />
                     <span>Sign Out</span>

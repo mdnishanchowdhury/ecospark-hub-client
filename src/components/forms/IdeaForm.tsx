@@ -111,7 +111,7 @@ export default function CreateIdeaForm() {
     if (!isMounted) return null;
 
     return (
-        <div className="min-h-screen w-full flex items-center justify-center p-4">
+        <div className="min-h-screen w-full flex items-center justify-center">
             <Card className='w-full max-w-[800px] rounded-[32px] shadow-md border-gray-100 bg-[#f0f4f1]'>
                 <CardHeader className='bg-[#1b4332] text-white py-10 px-6 text-center relative'>
                     <CardTitle className="flex items-center text-3xl justify-center gap-3 mb-2">Share Your Green Idea</CardTitle>

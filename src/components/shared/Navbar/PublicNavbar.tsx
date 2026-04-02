@@ -39,7 +39,7 @@ const PublicNavbar = async () => {
 
   const categoryMenuItems: SubMenuItem[] = categories.map((cat: any) => ({
     title: cat.name,
-    url: `/menu-ideas?categoryId=${cat.id}`, 
+    url: `/menu-ideas?categoryId=${cat.id}`,
     icon: <Layers className="size-5" />,
     description: `Explore ideas in ${cat.name}`,
   }));
@@ -147,7 +147,7 @@ const PublicNavbar = async () => {
                 </SheetTitle>
               </SheetHeader>
 
-              <div className="flex flex-col gap-6 pt-6">
+              <div className="flex flex-col gap-6 pt-6 px-5">
                 <Accordion type="single" collapsible className="w-full">
                   {menu.map((item) => (
                     <AccordionItem key={item.title} value={item.title}>

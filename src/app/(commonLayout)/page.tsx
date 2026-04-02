@@ -1,6 +1,5 @@
 import { dehydrate, HydrationBoundary, QueryClient } from "@tanstack/react-query";
 import { getIdeas } from "@/services/ideas/idea.service";
-import { getAllCategories } from "@/services/admin/category.services";
 import HomePage from "@/components/modules/HomePage.tsx/HomePage";
 export const dynamic = "force-dynamic";
 
@@ -15,16 +14,10 @@ export default async function Page() {
     limit: 9,
   };
 
-  await Promise.all([
-    queryClient.prefetchQuery({
-      queryKey: ["ideas", initialFilters],
-      queryFn: () => getIdeas(initialFilters),
-    }),
-    queryClient.prefetchQuery({
-      queryKey: ["categories"],
-      queryFn: () => getAllCategories(),
-    }),
-  ]);
+  await queryClient.prefetchQuery({
+    queryKey: ["ideas", initialFilters],
+    queryFn: () => getIdeas(initialFilters),
+  });
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>

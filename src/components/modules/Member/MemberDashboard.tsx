@@ -8,8 +8,6 @@ import {
   ArrowUpRight, Clock, Plus
 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
 import { getMemberMetaData } from "@/services/meta/meta.services";
 
 interface MemberDashboardProps {
@@ -71,7 +69,7 @@ export default function MemberDashboard({ initialData }: MemberDashboardProps) {
   ];
 
   return (
-    <div className="min-h-screen w-full text-slate-900 font-sans px-2">
+    <div className="min-h-screen w-full text-slate-900 font-sans ">
       <div className="space-y-8">
 
         {/* Header */}

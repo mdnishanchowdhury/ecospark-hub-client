@@ -58,6 +58,7 @@ export default function IdeaFilters({ categoryId, isPaid, searchTerm }: IdeaFilt
                             className="h-14 pl-10 pr-8 rounded-xl border-none bg-slate-50/50 text-sm font-semibold text-slate-600 outline-none ring-1 ring-slate-200 focus:ring-2 focus:ring-emerald-500/20 transition-all cursor-pointer appearance-none min-w-[140px] w-full"
                             onChange={(e) => updateQueryParams("isPaid", e.target.value)}
                             value={isPaid || "all"}
+                            suppressHydrationWarning
                         >
                             <option value="all">Pricing: All</option>
                             <option value="true">Paid Only</option>

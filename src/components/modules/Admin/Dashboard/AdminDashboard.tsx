@@ -47,7 +47,7 @@ export default function AdminDashboard({ initialData }: AdminDashboardProps) {
   ];
 
   return (
-    <div className="min-h-screen w-full text-slate-900 font-sans px-2">
+    <div className="min-h-screen w-full text-slate-900 font-sans">
       <div className="space-y-8">
 
         {/* Modern Header */}

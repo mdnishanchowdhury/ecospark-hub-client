@@ -10,10 +10,17 @@ interface IdeaListProps {
   ideas: TIdea[];
   isLoading: boolean;
   meta?: TMeta;
+  currentUserId: string | undefined;
   onPageChange: (page: number) => void;
 }
 
-export default function IdeaList({ ideas, isLoading, meta, onPageChange }: IdeaListProps) {
+export default function IdeaList({
+  ideas,
+  isLoading,
+  meta,
+  currentUserId,
+  onPageChange
+}: IdeaListProps) {
 
   if (isLoading) {
     return (
@@ -42,7 +49,6 @@ export default function IdeaList({ ideas, isLoading, meta, onPageChange }: IdeaL
 
   return (
     <section className="flex flex-col min-h-screen">
-      {/* idea grid */}
       <motion.div
         initial="hidden"
         animate="visible"
@@ -55,7 +61,7 @@ export default function IdeaList({ ideas, isLoading, meta, onPageChange }: IdeaL
             variants={{ hidden: { opacity: 0, y: 30 }, visible: { opacity: 1, y: 0 } }}
             transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
           >
-            <IdeaCard idea={idea} />
+            <IdeaCard idea={idea} currentUserId={currentUserId} />
           </motion.div>
         ))}
       </motion.div>

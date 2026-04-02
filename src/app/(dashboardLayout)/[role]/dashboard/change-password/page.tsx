@@ -8,7 +8,7 @@ interface IPageProps {
 export default async function ChangePasswordPage({ searchParams }: IPageProps) {
 
     return (
-        <div className="min-h-[80vh] w-full flex items-center justify-center p-4">
+        <div className="min-h-[80vh] w-full flex items-center justify-center">
             <ChangePasswordForm />
         </div>
     );

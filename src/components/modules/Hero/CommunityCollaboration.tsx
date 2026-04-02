@@ -172,10 +172,10 @@ export default function CommunityCollaboration() {
     const spotlights = useMemo(() => SPOTLIGHTS_DATA, []);
 
     return (
-        <section id="community-collaboration" className="py-5 relative overflow-hidden bg-[#fdfdfd]">
+        <section id="community-collaboration" className="py-5 relative overflow-hidden ">
 
-            <div className="absolute -top-40 -left-40 w-[500px] h-[500px] rounded-full bg-emerald-100/40 blur-[120px] pointer-events-none -z-10" />
-            <div className="absolute -bottom-40 -right-40 w-[500px] h-[500px] rounded-full bg-cyan-100/30 blur-[120px] pointer-events-none -z-10" />
+            <div className="absolute -top-40 -left-40 w-[500px] h-[500px] rounded-full pointer-events-none -z-10" />
+            <div className="absolute -bottom-40 -right-40 w-[500px] h-[500px] rounded-full pointer-events-none -z-10" />
 
             <div className="max-w-7xl mx-auto px-6 relative z-10">
 

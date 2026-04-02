@@ -131,7 +131,7 @@ const IdeaDetails = ({ initialIdea }: IdeaDetailProps) => {
           <Card className="shadow-sm border-muted">
             <CardHeader className="pb-4 border-b">
               <div className="flex items-center justify-between">
-                <CardTitle className="text-2xl font-black uppercase italic">The Concept</CardTitle>
+                <CardTitle className="text-2xl font-black">The Concept</CardTitle>
                 <VoteButtons
                   upVotes={idea.upVotes || 0}
                   downVotes={idea.downVotes || 0}
@@ -147,17 +147,17 @@ const IdeaDetails = ({ initialIdea }: IdeaDetailProps) => {
             <CardContent className="space-y-8 pt-6">
               {/* Problem Section */}
               <section>
-                <h4 className="font-bold text-lg flex items-center gap-2 mb-3 text-red-600 uppercase tracking-tighter">
+                <h4 className="font-bold text-lg flex items-center gap-2 mb-3 text-red-600">
                   <AlertCircle className="h-5 w-5" /> The Problem
                 </h4>
-                <div className="p-5 bg-red-50/30 rounded-xl border border-red-100/50 text-slate-700 leading-relaxed italic">
+                <div className="p-5 bg-red-50/30 rounded-xl border border-red-100/50 text-slate-700 ">
                   "{idea.problemStatement}"
                 </div>
               </section>
 
               {/* Solution Section */}
               <section>
-                <h4 className="font-bold text-lg flex items-center gap-2 mb-3 text-green-600 uppercase tracking-tighter">
+                <h4 className="font-bold text-lg flex items-center gap-2 mb-3 text-green-600">
                   <Unlock className="h-5 w-5" /> Proposed Solution
                 </h4>
                 <div className="relative group">
@@ -175,7 +175,7 @@ const IdeaDetails = ({ initialIdea }: IdeaDetailProps) => {
 
               {/* Description */}
               <section>
-                <h4 className="font-bold text-lg mb-3 uppercase tracking-tighter">Detailed Description</h4>
+                <h4 className="font-bold text-lg mb-3">Detailed Description</h4>
                 <div className="text-muted-foreground leading-relaxed whitespace-pre-line bg-slate-50/50 p-6 rounded-xl border border-slate-100">
                   {idea.description}
                 </div>

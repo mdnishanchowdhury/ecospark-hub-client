@@ -9,9 +9,13 @@ import HeroSection from "@/components/modules/Hero/HeroSection";
 import CommunityCollaboration from "@/components/modules/Hero/CommunityCollaboration";
 import IdeaFilter from "./IdeaFilter";
 import IdeaList from "./IdeaList";
+import { getUserInfo } from "@/services/auth/getUserInfo";
+
 
 export default function HomePage() {
     const scrollRef = useRef<HTMLDivElement>(null);
+    const { data: userRes } = useQuery({ queryKey: ['user'], queryFn: getUserInfo });
+    const currentUserId = userRes?.id || (userRes as any)?.data?.id;
 
     const [filters, setFilters] = useState({
         searchTerm: "",
@@ -98,6 +102,7 @@ export default function HomePage() {
                         <IdeaList
                             ideas={ideas}
                             isLoading={isLoading}
+                            currentUserId={currentUserId}
                             meta={meta}
                             onPageChange={handlePageChange}
                         />

@@ -39,7 +39,7 @@ const DashboardLink = () => {
   if (!mounted || !dashboardHref) return null;
 
   return (
-    <Button asChild variant="ghost" size="sm" className="gap-2 w-full lg:w-auto justify-start">
+    <Button asChild variant="ghost" size="sm" className="gap-2 bg-[#078d60] text-white w-full lg:w-auto justify-center">
       <Link href={dashboardHref}>
         <LayoutDashboard className="size-4" /> Dashboard
       </Link>

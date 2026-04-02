@@ -49,7 +49,7 @@ const HeroSection = () => {
 
     return (
         <TooltipProvider>
-            <section className="relative bg-white overflow-hidden py-16 lg:py-15 bg-grid-pattern min-h-[85vh] flex items-center">
+            <section className="relative overflow-hidden py-16 lg:py-15 bg-grid-pattern min-h-[85vh] flex items-center">
                 {/* Decorative Blurs */}
                 <div className="absolute top-0 right-0 -translate-y-1/4 translate-x-1/4 w-[500px] h-[500px] bg-emerald-50 rounded-full blur-3xl opacity-60" />
                 <div className="absolute bottom-0 left-0 translate-y-1/4 -translate-x-1/4 w-[400px] h-[400px] bg-green-50 rounded-full blur-3xl opacity-50" />

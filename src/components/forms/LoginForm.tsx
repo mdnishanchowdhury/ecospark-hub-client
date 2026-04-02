@@ -4,7 +4,6 @@ import { loginAction } from '@/app/(commonLayout)/(authRouteGroup)/login/_action
 import { AppField } from '@/components/shared/form/Appfield';
 import AppSubmitButton from '@/components/shared/form/AppSubmitButton';
 import { Alert, AlertDescription } from '@/components/ui/alert';
-import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { ILoginPayload, loginZodSchema } from '@/zod/auth.validation';
 import { useForm } from '@tanstack/react-form';
@@ -140,7 +139,7 @@ export default function LoginForm({ redirectPath }: { redirectPath?: string }) {
                     </form>
 
                     {/* Google Button */}
-                    <div className='mt-4'>
+                    {/* <div className='mt-4'>
                         <Button
                             variant='outline'
                             type="button"
@@ -158,7 +157,7 @@ export default function LoginForm({ redirectPath }: { redirectPath?: string }) {
                             </svg>
                             Continue with Google
                         </Button>
-                    </div>
+                    </div> */}
                 </CardContent>
 
                 <CardFooter className='justify-center pb-10 pt-2 border-none'>

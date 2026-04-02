@@ -30,15 +30,15 @@ const DashboardMobileSidebar = ({
   };
 
   return (
-    <div className="flex h-full flex-col bg-white">
+    <div className="flex h-full flex-col bg-[#0d4e42]">
       {/* Logo Section */}
       <div className="flex h-20 items-center border-b border-slate-100 px-6">
-        <Link href={dashboardHome} className="flex items-center gap-2.5">
-          <div className="bg-emerald-600 p-1.5 rounded-lg">
+        <Link href={dashboardHome} className="flex items-center gap-1">
+          <div className="p-1.5 rounded-lg">
             <Leaf className="h-5 w-5 text-white" />
           </div>
-          <span className="text-xl font-bold tracking-tight text-slate-800">
-            Spark<span className="text-emerald-600">Hub</span>
+          <span className="text-xl font-bold tracking-tight text-white transition-colors">
+            <span className="text-emerald-600">Eco</span>Spark
           </span>
         </Link>
       </div>
@@ -67,12 +67,12 @@ const DashboardMobileSidebar = ({
                         className={cn(
                           "flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium transition-all",
                           isActive
-                            ? "bg-emerald-50 text-emerald-700 shadow-sm"
+                            ? "bg-[#078d60] text-emerald-700 shadow-sm"
                             : "text-slate-500 active:bg-slate-50"
                         )}
                       >
-                        <Icon className={cn("h-5 w-5", isActive ? "text-emerald-600" : "text-slate-400")} />
-                        <span className="flex-1">{item.title}</span>
+                        <Icon className={cn("h-5 w-5", isActive ? "text-white" : "text-white")} />
+                        <span className="flex-1 text-white">{item.title}</span>
                         {item.badge && (
                           <Badge
                             variant="outline"

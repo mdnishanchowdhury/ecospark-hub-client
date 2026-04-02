@@ -1,6 +1,9 @@
+export const dynamic = "force-dynamic";
+
 import IdeaCard from "@/components/modules/HomePage.tsx/IdeaCard";
 import IdeaFilters from "@/components/modules/HomePage.tsx/IdeaFilters";
 import { getIdeasMenu } from "@/services/ideas/idea.service";
+import { getUserInfo } from "@/services/auth/getUserInfo";
 
 interface IdeasPageProps {
   searchParams: Promise<{
@@ -12,7 +15,11 @@ interface IdeasPageProps {
 }
 
 export default async function IdeasPage({ searchParams }: IdeasPageProps) {
+  const user = await getUserInfo();
+  const currentUserId = user?.id;
+
   const { categoryId, isPaid, searchTerm, page } = await searchParams;
+
   const ideasRes = await getIdeasMenu({
     categoryId,
     isPaid,
@@ -39,7 +46,11 @@ export default async function IdeasPage({ searchParams }: IdeasPageProps) {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {ideas.length > 0 ? (
           ideas.map((idea: any) => (
-            <IdeaCard key={idea.id} idea={idea} />
+            <IdeaCard
+              key={idea.id}
+              idea={idea}
+              currentUserId={currentUserId}
+            />
           ))
         ) : (
           <div className="col-span-full text-center py-20 bg-slate-50 rounded-3xl border-2 border-dashed border-slate-200">

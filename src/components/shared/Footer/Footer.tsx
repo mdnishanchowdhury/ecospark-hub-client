@@ -7,21 +7,20 @@ import { Input } from "@/components/ui/input";
 
 const Footer = () => {
   return (
-    <footer className="relative bg-white border-t border-slate-100 pt-20 pb-10 overflow-hidden">
-      {/* Background Subtle Glow */}
+    <footer className="relative  border-t border-slate-100 pt-20 pb-10 overflow-hidden">
       <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-emerald-50/50 rounded-full blur-[120px] -z-10"></div>
 
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
-          
+
           {/* Brand Column */}
           <div className="space-y-6">
-            <Link href="/" className="flex items-center gap-2 group">
-              <div className="p-2 bg-emerald-600 rounded-xl group-hover:rotate-12 transition-transform duration-300">
-                <Leaf className="text-white" size={20} />
+            <Link href="/" className="flex items-center gap-1 group">
+              <div className="p-1 rounded-xl group-hover:rotate-12 transition-transform duration-300">
+                <Leaf className="text-emerald-600" size={20} />
               </div>
-              <span className="text-xl font-black text-slate-900 tracking-tighter lowercase">
-                ecospark<span className="text-emerald-600">.hub</span>
+              <span className="text-xl font-black text-slate-900 tracking-tighter">
+                <span className="text-emerald-600">Eco</span>Spark
               </span>
             </Link>
             <p className="text-sm text-slate-500 leading-relaxed lowercase max-w-[240px]">
@@ -71,8 +70,8 @@ const Footer = () => {
             <div className="flex flex-col gap-2">
               <div className="relative group">
                 <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-emerald-500 transition-colors" size={16} />
-                <Input 
-                  placeholder="email address" 
+                <Input
+                  placeholder="email address"
                   className="pl-10 h-12 rounded-2xl border-slate-100 focus-visible:ring-emerald-500/10 focus-visible:border-emerald-200 lowercase"
                 />
               </div>

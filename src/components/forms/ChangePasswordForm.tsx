@@ -54,7 +54,7 @@ export default function ChangePasswordForm() {
     if (!isMounted) return null;
 
     return (
-        <div className="w-full flex items-center justify-center p-4">
+        <div className="w-full flex items-center justify-center ">
             <Card className='w-full max-w-[480px] shadow-sm border-gray-200/60 rounded-[32px] overflow-hidden bg-white'>
                 <CardHeader className='text-center space-y-2 pt-10 pb-6'>
                     <div className="mx-auto bg-emerald-50 w-16 h-16 rounded-full flex items-center justify-center mb-2">

@@ -11,7 +11,7 @@ export default async function CategoryPage() {
   });
 
   return (
-    <div className="space-y-8 px-2">
+    <div className="space-y-8">
       <HydrationBoundary state={dehydrate(queryClient)}>
         <CategoryList />
       </HydrationBoundary>

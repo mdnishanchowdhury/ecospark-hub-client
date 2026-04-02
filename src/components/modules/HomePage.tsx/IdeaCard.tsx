@@ -7,20 +7,20 @@ import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { useVote } from "@/hooks/useVote";
-import { getUserInfo } from "@/services/auth/getUserInfo";
 import { VoteButtons } from "../Ideas/VoteButtons";
 import { TIdea } from "@/types/idea.types";
 
-export default function IdeaCard({ idea }: { idea: TIdea }) {
+interface IdeaCardProps {
+  idea: TIdea;
+  currentUserId: string | undefined;
+}
+
+export default function IdeaCard({ idea, currentUserId }: IdeaCardProps) {
   const [mounted, setMounted] = useState(false);
-  const [user, setUser] = useState<any>(null);
 
   useEffect(() => {
     setMounted(true);
-    getUserInfo().then(setUser);
   }, []);
-
-  const currentUserId = user?.id || user?.userId || user?.data?.id;
 
   const { handleLike, handleDislike, isLiked, isDisliked, isLoading } = useVote(
     idea.id,
@@ -95,7 +95,9 @@ export default function IdeaCard({ idea }: { idea: TIdea }) {
             </div>
           </div>
           <Button variant="ghost" size="sm" asChild className="text-emerald-600 font-bold p-0">
-            <Link href={`/ideas/${idea.id}`}>Details <ArrowUpRight size={16} className="ml-1" /></Link>
+            <Link href={`/ideas/${idea.id}`}>
+              Details <ArrowUpRight size={16} className="ml-1" />
+            </Link>
           </Button>
         </div>
       </CardFooter>

@@ -11,7 +11,7 @@ export default async function MyIdeasPage() {
     });
 
     return (
-        <div className="space-y-6 px-2">
+        <div className="space-y-6">
             <div className="flex flex-col gap-1">
                 <h1 className="text-2xl font-bold text-slate-800">My Submitted Ideas</h1>
                 <p className="text-sm text-slate-500">Manage and track the progress of your shared green ideas.</p>

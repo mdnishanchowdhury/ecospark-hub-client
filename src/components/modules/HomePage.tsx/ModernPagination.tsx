@@ -49,6 +49,7 @@ export default function ExactImagePagination({
             <button
                 disabled={currentPage === totalPages}
                 onClick={() => onPageChange(currentPage + 1)}
+                suppressHydrationWarning
                 className="w-[45px] h-[45px] flex items-center justify-center text-slate-300 bg-white border-2 border-slate-100 rounded-[10px] disabled:opacity-40 disabled:cursor-not-allowed transition-colors hover:bg-slate-50"
             >
                 <ChevronRight size={24} />

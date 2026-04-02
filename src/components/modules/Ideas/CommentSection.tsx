@@ -79,7 +79,7 @@ export const CommentSection = ({ ideaId, comments, commentCount, currentUserId, 
 
 
   return (
-    <div className="max-w-2xl mx-auto my-10 p-4 bg-white rounded-xl shadow-sm border border-slate-100">
+    <div className="my-10 p-4 bg-white rounded-xl shadow-sm border border-slate-100">
       {/* ... Header and Main Input remains same ... */}
       <div className="flex items-center gap-2 mb-6 px-2">
         <MessageSquare className="h-4 w-4 text-primary" />
@@ -94,7 +94,6 @@ export const CommentSection = ({ ideaId, comments, commentCount, currentUserId, 
             children={(field) => (
               <input
                 value={field.state.value}
-                onFocus={() => { if (!currentUserId) checkAuthAndRedirect() }}
                 onChange={(e) => field.handleChange(e.target.value)}
                 placeholder="Write a comment..."
                 className="w-full bg-[#F0F2F5] rounded-full px-4 py-2 text-sm outline-none border border-transparent focus:border-slate-200 transition-all"
