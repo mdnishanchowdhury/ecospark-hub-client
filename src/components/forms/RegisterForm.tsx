@@ -4,6 +4,7 @@ import { registerAction } from '@/app/(commonLayout)/(authRouteGroup)/register/_
 import { AppField } from '@/components/shared/form/Appfield';
 import AppSubmitButton from '@/components/shared/form/AppSubmitButton';
 import { Alert, AlertDescription } from '@/components/ui/alert';
+import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { IRegisterPayload, registerZodSchema } from '@/zod/auth.validation';
 import { useForm } from '@tanstack/react-form';
@@ -180,7 +181,7 @@ export default function RegisterForm({ redirectPath }: { redirectPath?: string }
                         <span className="flex-shrink mx-4 text-xs font-medium text-slate-400 uppercase tracking-widest">Or sign up with</span>
                         <div className="flex-grow border-t border-gray-200"></div>
                     </div>
-{/* 
+
                     <Button
                         variant='outline'
                         type="button"
@@ -197,7 +198,7 @@ export default function RegisterForm({ redirectPath }: { redirectPath?: string }
                             <path d="M12 5.38c1.62 0 3.06.56 4.21 1.66l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335" />
                         </svg>
                         Continue with Google
-                    </Button> */}
+                    </Button>
 
                     <div className="text-center pt-2">
                         <p className='text-[15px] text-slate-500'>
