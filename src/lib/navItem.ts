@@ -29,7 +29,7 @@ export const getCommonNavItems = (role: UserRole): NavSection[] => {
             items: [
                 {
                     title: "Change Password",
-                    href: "change-password",
+                    href: `/${role.toLowerCase()}/dashboard/change-password`,
                     icon: "Settings"
                 }
             ]
@@ -72,6 +72,16 @@ export const adminNavItems: NavSection[] = [
             {
                 title: "All Categories",
                 href: `/admin/dashboard/all-categories`,
+                icon: "List"
+            },
+            {
+                title: "Add Idea",
+                href: `/admin/dashboard/add-idea`,
+                icon: "Plus"
+            },
+            {
+                title: "My Ideas",
+                href: `/admin/dashboard/my-ideas`,
                 icon: "List"
             }
         ]

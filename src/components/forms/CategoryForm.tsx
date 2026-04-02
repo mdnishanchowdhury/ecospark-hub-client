@@ -98,7 +98,7 @@ export default function CategoryForm() {
 
                     <AppSubmitButton
                         isPending={isPending}
-                        className="w-full bg-[#009663] hover:bg-[#007b52] rounded-2xl py-8 font-extrabold text-lg shadow-md transition-transform active:scale-[0.98]"
+                        className="w-full bg-[#009663] hover:bg-[#007b52] rounded-2xl py-5 font-extrabold text-lg shadow-md transition-transform active:scale-[0.98]"
                     >
                         {isPending ? "Creating..." : "Create Category"}
                     </AppSubmitButton>

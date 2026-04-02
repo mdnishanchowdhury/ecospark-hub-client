@@ -40,7 +40,7 @@ export default function PendingIdeaList() {
     const queryClient = useQueryClient();
     const [feedback, setFeedback] = useState("");
 
-    const { data: response, isLoading, isError } = useQuery({
+    const { data: response, isError } = useQuery({
         queryKey: ["pending-ideas"],
         queryFn: getPendingIdeas,
     });
@@ -64,7 +64,6 @@ export default function PendingIdeaList() {
 
     const ideas = response?.data || [];
 
-    if (isLoading) return <div className="p-20 text-center font-bold text-slate-400 animate-pulse">Loading...</div>;
     if (isError) return <div className="p-20 text-center text-red-400 font-bold">Failed to load ideas.</div>;
 
     return (

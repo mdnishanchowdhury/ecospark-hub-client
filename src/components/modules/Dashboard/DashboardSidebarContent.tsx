@@ -26,9 +26,9 @@ function DashboardSidebarContent({
     const handleLogout = async () => {
         await logoutUser();
     };
-
+// bg-[#f0f4f1]
     return (
-        <div className="hidden md:flex h-full w-64 flex-col border-r border-slate-200 bg-white">
+        <div className="hidden md:flex h-full w-64 flex-col border-r border-slate-200 bg-[#e8eee9]">
             {/* Logo Section */}
             <div className="flex h-20 items-center border-b border-slate-100 px-6">
                 <Link href={dashboardHome} className="flex items-center gap-2.5 group">

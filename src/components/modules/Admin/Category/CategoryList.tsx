@@ -25,7 +25,7 @@ export default function CategoryList() {
     const [selectedCategory, setSelectedCategory] = useState<{ id: string, name: string } | null>(null);
     const [newName, setNewName] = useState("");
 
-    const { data, isLoading, isError } = useQuery({
+    const { data, isError } = useQuery({
         queryKey: ["categories"],
         queryFn: () => getAllCategories(),
     });
@@ -63,13 +63,23 @@ export default function CategoryList() {
         setIsEditOpen(true);
     };
 
-    if (isLoading) return <div className="p-10 text-center font-bold text-emerald-600 animate-pulse">Loading...</div>;
     if (isError) return <div className="p-10 text-center text-red-500">Error loading categories!</div>;
 
     const categories = (data as any)?.data || [];
 
     return (
         <div className="bg-white rounded-[32px] border border-slate-100 shadow-sm overflow-hidden">
+            
+      <div className="bg-emerald-50/50 p-8 rounded-[32px] border border-emerald-100/50">
+        <h1 className="text-3xl font-black text-slate-900 tracking-tighter">
+          Category <span className="text-emerald-600 font-black">Management</span>
+        </h1>
+        <p className="text-slate-500 font-medium mt-1 text-sm max-w-2xl">
+          Organize and manage your eco-spark hub project categories efficiently. 
+          Use this panel to oversee all innovation niches available in the system.
+        </p>
+      </div>
+
             <Table>
                 <TableHeader className="bg-slate-50/50">
                     <TableRow>

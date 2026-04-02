@@ -111,10 +111,11 @@ export default function CreateIdeaForm() {
     if (!isMounted) return null;
 
     return (
-        <div className="min-h-screen w-full flex items-center justify-center bg-gray-50/30 p-4">
-            <Card className='w-full max-w-[800px] rounded-[32px] shadow-md border-gray-100 bg-white'>
-                <CardHeader className='text-center pt-10 pb-4'>
-                    <CardTitle className="text-3xl font-extrabold text-slate-900">Share Your Green Idea</CardTitle>
+        <div className="min-h-screen w-full flex items-center justify-center p-4">
+            <Card className='w-full max-w-[800px] rounded-[32px] shadow-md border-gray-100 bg-[#f0f4f1]'>
+                <CardHeader className='bg-[#1b4332] text-white py-10 px-6 text-center relative'>
+                    <CardTitle className="flex items-center text-3xl justify-center gap-3 mb-2">Share Your Green Idea</CardTitle>
+                    <CardTitle className="text-[#95d5b2] font-medium italic">Inspire the world — every eco-solution starts with a single spark 🌱</CardTitle>
                 </CardHeader>
 
                 <CardContent className="px-6 md:px-10 pb-10 mt-6">
@@ -128,16 +129,33 @@ export default function CreateIdeaForm() {
                     >
                         {/* Title Field */}
                         <form.Field name="title" validators={{ onChange: ({ value }) => getZodError(ideaFieldsSchema.title, value) }}>
-                            {(field) => <AppField field={field} label="Idea Title" placeholder="Give your idea a catchy name..." />}
+                            {(field) => <AppField field={field} label="Idea Title" placeholder="Give your idea a catchy name..."
+                                className="border-gray-200 bg-gray-50/50  "
+                            />}
                         </form.Field>
 
                         {/* Problem & Solution Row */}
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <form.Field name="problemStatement" validators={{ onChange: ({ value }) => getZodError(ideaFieldsSchema.problemStatement, value) }}>
-                                {(field) => <AppField field={field} label="The Problem" placeholder="What issue are you solving?" />}
+                                {(field) =>
+                                    <textarea
+                                        value={field.state.value}
+                                        onChange={(e) => field.handleChange(e.target.value)}
+                                        className="w-full h-40 p-4 border border-gray-200 bg-gray-50/50 rounded-[24px] outline-none focus:border-[#009663] transition-all resize-none mt-2"
+                                        placeholder="Describe the problem you're solving in detail..."
+                                    />
+                                }
                             </form.Field>
+
                             <form.Field name="solution" validators={{ onChange: ({ value }) => getZodError(ideaFieldsSchema.solution, value) }}>
-                                {(field) => <AppField field={field} label="Proposed Solution" placeholder="How does your idea fix it?" />}
+                                {(field) =>
+                                    <textarea
+                                        value={field.state.value}
+                                        onChange={(e) => field.handleChange(e.target.value)}
+                                        className="w-full h-40 p-4 border border-gray-200 bg-gray-50/50 rounded-[24px] outline-none focus:border-[#009663] transition-all resize-none mt-2"
+                                        placeholder="How does your idea solve this problem?"
+                                    />
+                                }
                             </form.Field>
                         </div>
 
@@ -148,7 +166,7 @@ export default function CreateIdeaForm() {
                                     <div className="space-y-3">
                                         <label className="text-[15px] font-bold text-slate-700 ml-1">Category</label>
                                         <Select onValueChange={(val) => field.handleChange(val)} value={field.state.value}>
-                                            <SelectTrigger className="w-full h-[56px] bg-slate-50 border-slate-100 rounded-2xl focus:ring-[#009663]">
+                                            <SelectTrigger className="w-full h-[56px] border border-gray-200 bg-gray-50/50 rounded-2xl focus:ring-[#009663] mt-2">
                                                 <SelectValue placeholder={isCatsLoading ? "Loading..." : "Select Category"} />
                                             </SelectTrigger>
                                             <SelectContent className="rounded-2xl shadow-xl">
@@ -168,7 +186,7 @@ export default function CreateIdeaForm() {
 
                             <div className="space-y-3">
                                 <label className="text-[15px] font-bold text-slate-700 ml-1">Pricing Model</label>
-                                <div className="flex items-center gap-4 p-3 bg-slate-50 rounded-2xl border border-slate-100 h-[56px]">
+                                <div className="flex items-center gap-4 p-3 bg-slate-50 rounded-2xl border border-gray-200 bg-gray-50/50 h-[56px] mt-2">
                                     <div className="flex items-center gap-3 flex-1">
                                         <span className="text-[10px] font-black text-slate-400 tracking-wider">FREE</span>
                                         <form.Field name="isPaid">
@@ -197,11 +215,11 @@ export default function CreateIdeaForm() {
 
                         <div className="space-y-3">
                             <label className="text-[15px] font-bold text-slate-700 ml-1">Images (Min 2, Max 5)</label>
-                            <div className="flex flex-wrap gap-4">
+                            <div className="flex flex-wrap gap-4 mt-4">
                                 <button
                                     type="button"
                                     onClick={() => fileInputRef.current?.click()}
-                                    className="w-24 h-24 flex flex-col items-center justify-center border-2 border-dashed border-slate-200 rounded-2xl hover:border-[#009663] bg-slate-50/50 transition-colors"
+                                    className="w-24 h-24 flex flex-col items-center justify-center border-2 border-dashed border-slate-400 rounded-2xl hover:border-[#009663] bg-gray transition-colors"
                                 >
                                     <Plus className="text-slate-400" size={24} />
                                 </button>
@@ -227,7 +245,7 @@ export default function CreateIdeaForm() {
                                 <div className="space-y-2">
                                     <label className="text-[15px] font-bold text-slate-700 ml-1">Full Description</label>
                                     <textarea
-                                        className="w-full min-h-[160px] p-4 bg-slate-50 border border-slate-100 rounded-[24px] outline-none focus:border-[#009663] transition-all resize-none"
+                                        className="w-full min-h-[160px] p-4 border border-gray-200 bg-gray-50/50 rounded-[24px] outline-none focus:border-[#009663] transition-all resize-none mt-2"
                                         placeholder="Explain your idea in detail..."
                                         value={field.state.value}
                                         onChange={(e) => field.handleChange(e.target.value)}
@@ -245,7 +263,7 @@ export default function CreateIdeaForm() {
                             </Alert>
                         )}
 
-                        <AppSubmitButton isPending={isPending} className="w-full bg-[#009663] hover:bg-[#007b52] py-8 rounded-2xl font-extrabold text-xl shadow-lg transition-all active:scale-[0.98]">
+                        <AppSubmitButton isPending={isPending} className="w-full bg-[#009663] hover:bg-[#007b52] py-6 rounded-2xl font-extrabold text-xl shadow-lg transition-all active:scale-[0.98]">
                             {isPending ? "Publishing..." : "Publish Green Idea"}
                         </AppSubmitButton>
                     </form>

@@ -1,4 +1,4 @@
-import { Menu, Zap, Trees, Leaf } from "lucide-react";
+import { Menu, Zap, Trees, Leaf, Layers } from "lucide-react";
 import Link from "next/link";
 import { Button } from "../../ui/button";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "../../ui/sheet";
@@ -16,39 +16,49 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import LogoutButton from "./LogoutButton";
 import { getCookie } from "@/services/auth/tokenHandlers";
 import DashboardLink from "./DashboardLink";
+import { getAllCategories } from "@/services/admin/category.services";
+
+interface SubMenuItem {
+  title: string;
+  url: string;
+  icon?: React.ReactNode;
+  description?: string;
+}
+
+interface MainMenuItem {
+  title: string;
+  url: string;
+  items?: SubMenuItem[];
+}
 
 const PublicNavbar = async () => {
   const accessToken = await getCookie("accessToken");
 
-  const menu = [
+  const categoryRes = await getAllCategories();
+  const categories = (categoryRes as any)?.data || [];
+
+  const categoryMenuItems: SubMenuItem[] = categories.map((cat: any) => ({
+    title: cat.name,
+    url: `/menu-ideas?categoryId=${cat.id}`, 
+    icon: <Layers className="size-5" />,
+    description: `Explore ideas in ${cat.name}`,
+  }));
+
+  const menu: MainMenuItem[] = [
     { title: "Home", url: "/" },
     {
       title: "Solutions",
       url: "#",
-      items: [
-        {
-          title: "Clean Energy",
-          url: "/solutions/energy",
-          icon: <Zap className="size-5" />,
-          description: "Explore renewable energy ideas",
-        },
-        {
-          title: "Environment",
-          url: "/solutions/environment",
-          icon: <Trees className="size-5" />,
-          description: "Sustainability for a greener planet",
-        },
-      ],
+      items: categoryMenuItems,
     },
     { title: "Pricing", url: "/pricing" },
     { title: "Community", url: "/community" },
   ];
 
-
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-white/90 backdrop-blur-md">
+    <header className="sticky top-0 z-50 w-full border-b bg-white/90 backdrop-blur-md px-4">
       <div className="max-w-[1400px] mx-auto">
-        {/* DESKTOP */}
+        {/* DESKTOP NAV */}
         <nav className="hidden h-14 items-center justify-between lg:flex">
           <div className="flex items-center gap-6">
             <Link href="/" className="flex items-center gap-2 hover:opacity-80 transition">
@@ -62,24 +72,21 @@ const PublicNavbar = async () => {
               <NavigationMenuList>
                 {menu.map((item) => (
                   <NavigationMenuItem key={item.title}>
-                    {item.items ? (
+                    {item.items && item.items.length > 0 ? (
                       <>
                         <NavigationMenuTrigger>{item.title}</NavigationMenuTrigger>
                         <NavigationMenuContent>
                           <ul className="grid w-[420px] lg:w-[500px] gap-3 p-4 md:grid-cols-2">
-                            {item.items.map((subItem) => (
+                            {item.items.map((subItem: SubMenuItem) => (
                               <li key={subItem.title}>
                                 <NavigationMenuLink asChild>
                                   <Link
                                     href={subItem.url}
                                     className="block p-3 rounded-md hover:bg-slate-100 transition"
                                   >
-                                    <div className="flex items-center gap-2 font-medium">
+                                    <div className="flex items-center gap-2 font-medium text-emerald-700">
                                       {subItem.icon} {subItem.title}
                                     </div>
-                                    <p className="text-sm text-muted-foreground">
-                                      {subItem.description}
-                                    </p>
                                   </Link>
                                 </NavigationMenuLink>
                               </li>
@@ -121,7 +128,7 @@ const PublicNavbar = async () => {
           </div>
         </nav>
 
-        {/* MOBILE */}
+        {/* MOBILE NAV */}
         <div className="flex h-14 items-center justify-between lg:hidden">
           <Link href="/" className="flex items-center gap-2">
             <Leaf className="size-6 text-emerald-600" />
@@ -135,22 +142,24 @@ const PublicNavbar = async () => {
 
             <SheetContent side="right" className="w-72">
               <SheetHeader>
-                <SheetTitle>Menu</SheetTitle>
+                <SheetTitle className="text-left flex items-center gap-2 border-b pb-4">
+                  <Leaf className="size-5 text-emerald-600" /> EcoSpark
+                </SheetTitle>
               </SheetHeader>
 
               <div className="flex flex-col gap-6 pt-6">
                 <Accordion type="single" collapsible className="w-full">
                   {menu.map((item) => (
                     <AccordionItem key={item.title} value={item.title}>
-                      {item.items ? (
+                      {item.items && item.items.length > 0 ? (
                         <>
-                          <AccordionTrigger>{item.title}</AccordionTrigger>
-                          <AccordionContent className="flex flex-col gap-2">
-                            {item.items.map((subItem) => (
+                          <AccordionTrigger className="text-sm font-medium">{item.title}</AccordionTrigger>
+                          <AccordionContent className="flex flex-col gap-2 pl-4">
+                            {item.items.map((subItem: SubMenuItem) => (
                               <Link
                                 key={subItem.title}
                                 href={subItem.url}
-                                className="py-2 text-sm"
+                                className="py-2 text-sm text-slate-600 hover:text-emerald-600 transition-colors"
                               >
                                 {subItem.title}
                               </Link>
@@ -158,23 +167,23 @@ const PublicNavbar = async () => {
                           </AccordionContent>
                         </>
                       ) : (
-                        <div className="py-3 font-medium">
-                          <Link href={item.url}>{item.title}</Link>
+                        <div className="py-4 border-b text-sm font-medium">
+                          <Link href={item.url} className="block w-full">{item.title}</Link>
                         </div>
                       )}
                     </AccordionItem>
                   ))}
                 </Accordion>
 
-                <div className="flex flex-col gap-3 pt-6 border-t">
+                <div className="flex flex-col gap-3 pt-6">
                   {accessToken ? (
-                    <>
+                    <div className="space-y-3">
                       <DashboardLink />
                       <LogoutButton />
-                    </>
+                    </div>
                   ) : (
-                    <Link href="/login">
-                      <Button className="w-full">Login</Button>
+                    <Link href="/login" className="w-full">
+                      <Button className="w-full bg-emerald-600">Login</Button>
                     </Link>
                   )}
                 </div>

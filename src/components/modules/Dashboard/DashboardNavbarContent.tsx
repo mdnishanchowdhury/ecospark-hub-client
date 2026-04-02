@@ -34,7 +34,7 @@ const DashboardNavbarContent = ({
     <header
       className={`sticky top-0 z-50 w-full transition-all duration-300 ${scrolled
         ? "bg-white/95 backdrop-blur-lg border-b border-slate-200 shadow-sm"
-        : "bg-white border-b border-slate-200"
+        : "bg-[#FFFFFF] border-b border-slate-200"
         }`}
     >
       <div className="mx-auto flex h-16 max-w-[1400px] items-center justify-between px-4 md:px-8 relative">
@@ -82,11 +82,11 @@ const DashboardNavbarContent = ({
         {/* CENTER SEARCH: Desktop Only */}
         <div className="flex-1 hidden md:flex justify-center px-4">
           <div className="relative w-full max-w-xl">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400" />
+            <Search className="absolute left-4 top-1/2 -translate-y-1/2 h-4 w-4 text-[#1b4332]" />
             <input
               type="search"
               placeholder="Search..."
-              className="w-full h-11 pl-11 pr-4 bg-slate-50/50 border border-slate-200 rounded-xl text-[14px] placeholder:text-slate-400 focus:bg-white focus:border-emerald-500/40 focus:ring-4 focus:ring-emerald-500/5 transition-all outline-none"
+              className="w-full h-11 pl-11 pr-4 bg-[#f0f4f1] border border-slate-200 rounded-xl text-[14px] placeholder:text-[#1b4332] focus:bg-white focus:border-emerald-500/40 focus:ring-4 focus:ring-emerald-500/5 transition-all outline-none"
             />
           </div>
         </div>

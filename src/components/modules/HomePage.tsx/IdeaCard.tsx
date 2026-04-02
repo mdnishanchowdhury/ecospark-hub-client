@@ -28,6 +28,10 @@ export default function IdeaCard({ idea }: { idea: TIdea }) {
     currentUserId
   );
 
+  const formattedDate = mounted
+    ? new Date(idea.createdAt).toLocaleDateString("en-GB")
+    : "";
+
   return (
     <Card className="group overflow-hidden border-none shadow-sm hover:shadow-md transition-all duration-300 bg-white rounded-3xl h-full flex flex-col">
       <div className="relative p-2">
@@ -53,7 +57,9 @@ export default function IdeaCard({ idea }: { idea: TIdea }) {
           </span>
           <div className="flex items-center text-muted-foreground text-[11px] gap-1">
             <Calendar size={12} />
-            {mounted ? new Date(idea.createdAt).toLocaleDateString("en-GB") : "---"}
+            <span suppressHydrationWarning>
+              {mounted ? formattedDate : "---"}
+            </span>
           </div>
         </div>
         <Link href={`/ideas/${idea.id}`}>
@@ -72,15 +78,17 @@ export default function IdeaCard({ idea }: { idea: TIdea }) {
       <CardFooter className="px-5 py-4 border-t border-slate-50">
         <div className="w-full flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <VoteButtons
-              upVotes={idea.upVotes || 0}
-              downVotes={idea.downVotes || 0}
-              onLike={handleLike}
-              onDislike={handleDislike}
-              isLiked={isLiked}
-              isDisliked={isDisliked}
-              isLoading={isLoading}
-            />
+            <div className={!mounted ? "opacity-50 pointer-events-none" : ""}>
+              <VoteButtons
+                upVotes={idea.upVotes || 0}
+                downVotes={idea.downVotes || 0}
+                onLike={handleLike}
+                onDislike={handleDislike}
+                isLiked={isLiked}
+                isDisliked={isDisliked}
+                isLoading={isLoading || !mounted}
+              />
+            </div>
             <div className="flex items-center gap-1.5 text-muted-foreground">
               <MessageCircle size={18} className="text-sky-400" />
               <span className="text-xs font-bold">{idea._count?.comments || 0}</span>

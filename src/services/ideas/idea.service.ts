@@ -34,6 +34,25 @@ export const getIdeas = async (params?: Record<string, any>): Promise<any> => {
     return res.data;
 };
 
+
+
+export const getIdeasMenu = async (params: any = {}): Promise<any> => {
+    try {
+        const res = await httpClient.get("/idea/all-menu", {
+            params: {
+                ...params,
+                categoryId: params.categoryId === "all" ? undefined : params.categoryId,
+            },
+        });
+
+        return res.data;
+    } catch (error) {
+        console.error("Fetch Error:", error);
+        return { data: [], meta: {} };
+    }
+};
+
+
 export const getIdeaById = async (id: string) => {
     try {
         const response = await httpClient.get<any>(`/idea/${id}`);

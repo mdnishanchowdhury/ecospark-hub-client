@@ -1,6 +1,7 @@
 import DashboardNavbar from "@/components/modules/Dashboard/DashboardNavbar";
 import DashboardSidebar from "@/components/modules/Dashboard/DashboardSidebar";
 import React from "react";
+import { Toaster } from "sonner";
 
 export const dynamic = "force-dynamic";
 
@@ -21,6 +22,7 @@ const RootDashboardLayout = async ({ children }: { children: React.ReactNode }) 
                     </div>
                 </main>
             </div>
+            <Toaster position="top-center" richColors />
         </div>
     )
 }

@@ -25,6 +25,7 @@ const nextConfig = {
       bodySizeLimit: '10mb',
     },
   },
+  transpilePackages: ['recharts'],
 };
 
 export default nextConfig;
