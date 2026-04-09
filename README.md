@@ -1,6 +1,13 @@
 ## EcoSpark-Hub Client
 The frontend application for EcoSpark-Hub, a community-driven platform for eco-friendly innovations. Built with Next.js 16 and React 19, it provides a high-performance, accessible, and visually engaging experience for users to share and support sustainability ideas.
 
+## Role-Based Login
+**Admin Credentials:**
+```text
+- **Email:** `nishanchowdhury4130@gmail.com`
+- **Password:** `Nishan@12
+```
+
 ## 🚀 Live Links
 * **Frontend Application:** [https://ecospark-hub-client.vercel.app](https://ecospark-hub-client.vercel.app)
 * **Backend API:** [https://eco-spark-hub-server-wine.vercel.app](https://eco-spark-hub-server-wine.vercel.app)
