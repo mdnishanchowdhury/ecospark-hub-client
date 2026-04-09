@@ -4,8 +4,8 @@ The frontend application for EcoSpark-Hub, a community-driven platform for eco-f
 ## Role-Based Login
 **Admin Credentials:**
 ```text
-- **Email:** `nishanchowdhury4130@gmail.com`
-- **Password:** `Nishan@12
+Email: nishanchowdhury4130@gmail.com
+Password: Nishan@12
 ```
 
 ## 🚀 Live Links
